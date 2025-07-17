@@ -1,0 +1,8 @@
+root = true
+
+[*.cs]
+indent_style = space
+indent_size = 4
+csharp_style_var_for_built_in_types = true:warning
+csharp_style_var_when_type_is_apparent = true:warning
+dotnet_separate_import_directive_groups = true

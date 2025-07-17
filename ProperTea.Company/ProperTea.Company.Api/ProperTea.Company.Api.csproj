@@ -11,4 +11,9 @@
     <PackageReference Include="Scalar.AspNetCore" Version="2.6.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="../ProperTea.Company.Domain/ProperTea.Company.Domain.csproj" />
+    <ProjectReference Include="../ProperTea.Company.Infrastructure/ProperTea.Company.Infrastructure.csproj" />
+  </ItemGroup>
+
 </Project>
