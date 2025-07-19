@@ -1,0 +1,46 @@
+{
+    "name": "ProperTea .NET Dev Container",
+    "build": {
+        "dockerfile": "Dockerfile"
+    },
+    "forwardPorts": [5000, 7000],
+	"portsAttributes": {
+		"7000": {
+			"protocol": "https"
+		}
+	},
+    "postCreateCommand": "dotnet restore",
+    "features": {
+		"ghcr.io/devcontainers/features/docker-outside-of-docker:1": {
+            "moby": true,
+            "installDockerBuildx": true,
+            "installDockerComposeSwitch": true,
+            "version": "latest",
+            "dockerDashComposeVersion": "v2"
+        },
+        "ghcr.io/devcontainers/features/common-utils:2": {
+            "installZsh": "true",
+            "username": "vscode",
+            "upgradePackages": "true",
+			"userUid": "1000",
+			"userGid": "1000"
+        },
+        "ghcr.io/devcontainers/features/git:1": {
+            "version": "latest",
+            "ppa": "false"
+        }
+	},
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-vscode-remote.remote-containers",
+				"ms-dotnettools.vscode-dotnet-runtime",
+                "ms-dotnettools.csharp",
+                "ms-dotnettools.csdevkit",
+                "ms-azuretools.vscode-docker",
+				"eamodio.gitlens"
+            ]
+        }
+    },
+    "remoteUser": "vscode"
+}

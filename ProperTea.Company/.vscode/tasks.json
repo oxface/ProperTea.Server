@@ -8,14 +8,14 @@
 				"build"
 			],
 			"dockerBuild": {
-				"tag": "properteaserver:dev",
+				"tag": "properteacompany:dev",
 				"target": "base",
-				"dockerfile": "${workspaceFolder}/ProperTea.Company/ProperTea.Company.Api/Dockerfile",
+				"dockerfile": "${workspaceFolder}/ProperTea.Company.Api/Dockerfile",
 				"context": "${workspaceFolder}",
 				"pull": true
 			},
 			"netCore": {
-				"appProject": "${workspaceFolder}/ProperTea.Company/ProperTea.Company.Api/ProperTea.Company.Api.csproj"
+				"appProject": "${workspaceFolder}/ProperTea.Company.Api/ProperTea.Company.Api.csproj"
 			}
 		},
 		{
@@ -25,8 +25,8 @@
 				"build"
 			],
 			"dockerBuild": {
-				"tag": "properteaserver:latest",
-				"dockerfile": "${workspaceFolder}/ProperTea.Company/ProperTea.Company.Api/Dockerfile",
+				"tag": "properteacompany:latest",
+				"dockerfile": "${workspaceFolder}/ProperTea.Company.Api/Dockerfile",
 				"context": "${workspaceFolder}",
 				"platform": {
 					"os": "linux",
@@ -35,7 +35,7 @@
 				"pull": true
 			},
 			"netCore": {
-				"appProject": "${workspaceFolder}/ProperTea.Company/ProperTea.Company.Api/ProperTea.Company.Api.csproj"
+				"appProject": "${workspaceFolder}/ProperTea.Company.Api/ProperTea.Company.Api.csproj"
 			}
 		},
 		{
@@ -46,7 +46,7 @@
 			],
 			"dockerRun": {},
 			"netCore": {
-				"appProject": "${workspaceFolder}/ProperTea.Company/ProperTea.Company.Api/ProperTea.Company.Api.csproj",
+				"appProject": "${workspaceFolder}/ProperTea.Company.Api/ProperTea.Company.Api.csproj",
 				"enableDebugging": true
 			}
 		},
@@ -58,7 +58,7 @@
 			],
 			"dockerRun": {},
 			"netCore": {
-				"appProject": "${workspaceFolder}/ProperTea.Company/ProperTea.Company.Api/ProperTea.Company.Api.csproj"
+				"appProject": "${workspaceFolder}/ProperTea.Company.Api/ProperTea.Company.Api.csproj"
 			}
 		}
 	]

@@ -3,17 +3,16 @@ WORKDIR /app
 EXPOSE 5000
 EXPOSE 7000
 
-ENV ASPNETCORE_URLS=http://+:5000;https://+:7000
+ENV ASPNETCORE_URLS=http://+:5000
 
 USER app
 FROM --platform=$BUILDPLATFORM mcr.microsoft.com/dotnet/sdk:9.0 AS build
 ARG configuration=Release
 WORKDIR /src
-COPY ["ProperTea.Company.Api.csproj", "ProperTea.Company/ProperTea.Company.Api/"]
-RUN dotnet restore "ProperTea.Company/ProperTea.Company.Api/ProperTea.Company.Api.csproj"
-
-WORKDIR "/src/ProperTea.Company/ProperTea.Company.Api"
+COPY ["ProperTea.Company.Api/ProperTea.Company.Api.csproj", "ProperTea.Company.Api/"]
+RUN dotnet restore "ProperTea.Company.Api/ProperTea.Company.Api.csproj"
 COPY . .
+WORKDIR "/src/ProperTea.Company.Api"
 RUN dotnet build "ProperTea.Company.Api.csproj" -c $configuration -o /app/build
 
 FROM build AS publish
