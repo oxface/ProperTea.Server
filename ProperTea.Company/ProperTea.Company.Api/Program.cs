@@ -5,6 +5,7 @@ using System.Text.Json.Serialization;
 using Scalar.AspNetCore;
 using ProperTea.Company.Api.Setup;
 using ProperTea.Company.Api.Company.Endpoints;
+using ProperTea.Company.MigrationService;
 
 var builder = WebApplication.CreateBuilder(args);
 

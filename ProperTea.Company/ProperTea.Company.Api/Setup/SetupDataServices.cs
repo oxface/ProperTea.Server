@@ -9,7 +9,7 @@ public static class DataServices
             IConfiguration configuration)
         { 
             services.AddDbContext<CompanyDbContext>(options =>
-                options.UseSqlServer(configuration.GetConnectionString("propertea-db")));   
+                options.UseSqlServer(configuration.GetConnectionString("propertea-company-db")));   
                 
             return services;
         }

@@ -2,6 +2,16 @@ using CommunityToolkit.Aspire.Hosting.Dapr;
 
 var builder = DistributedApplication.CreateBuilder(args);
 
+var azureSql = builder.AddAzureSqlServer("propertea-sql")
+    .RunAsContainer(e =>
+    {
+        e.WithDataVolume("propertea-sql-data");
+    });
+var companyDb = azureSql.AddDatabase("propertea-company-db");
+var migrations = builder.AddProject<Projects.ProperTea_Company_MigrationService>("migrations")
+    .WithReference(companyDb)
+    .WaitFor(companyDb);
+
 var companyApiSidecarOptions = new DaprSidecarOptions
 {
     AppId = "company-api-sidecar",
@@ -12,6 +22,10 @@ var companyApiSidecarOptions = new DaprSidecarOptions
 };
 var companyApi = builder
         .AddProject<Projects.ProperTea_Company_Api>("company-api")
+        .WithReference(companyDb)
+        .WithReference(migrations)
+        .WaitForCompletion(migrations)
+        .WaitFor(companyDb)
         .WithDaprSidecar(companyApiSidecarOptions)
         .WithOtlpExporter()
         .WithHttpHealthCheck("/health")
