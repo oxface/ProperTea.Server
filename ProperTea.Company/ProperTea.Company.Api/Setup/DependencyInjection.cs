@@ -1,5 +1,7 @@
+using FluentValidation;
+
 using ProperTea.Company.Application.Company.Commands;
-using ProperTea.Company.Application.Company.Models;
+using ProperTea.Company.Application.Company.DomainEventHandlers;
 using ProperTea.Company.Application.Company.Queries;
 using ProperTea.Company.Application.Core;
 using ProperTea.Company.Domain.Company;
@@ -9,31 +11,66 @@ using ProperTea.Company.Infrastructure.Core;
 
 namespace ProperTea.Company.Api.Setup
 {
-    public static class DependencyInjection
+    public static class DomainServices
     {
-        public static IServiceCollection AddGeneralServices(this IServiceCollection services,
-            IConfiguration configuration)
-        {            
-            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
-            services.AddScoped<IUnitOfWork, UnitOfWork>();
+        public static IServiceCollection AddDomainServices(this IServiceCollection services)
+        {
+            services.AddScoped<ICompanyDomainService, CompanyDomainService>();
 
             return services;
         }
-
-        public static IServiceCollection AddCompanyServices(this IServiceCollection services, IConfiguration configuration)
+    }
+    
+    public static class ApplicationServices
+    {
+        public static IServiceCollection AddApplicationServices(this IServiceCollection services)
         {
-            services.AddScoped<ICompanyRepository, CompanyRepository>();
-
-            services.AddTransient<ICompanyDomainService, CompanyDomainService>();
-
-            services.AddTransient<IQueryHandler<GetCompanyByIdQuery, CompanyModel>, GetCompanyByIdQueryHandler>();
-            services.AddTransient<IQueryHandler<GetCompaniesByFilterQuery, IEnumerable<CompanyModel>>, GetCompaniesByFilterQueryHandler>();
-
-            services.AddTransient<ICommandHandler<CreateCompanyCommand, Guid>, CreateCompanyCommandHandler>();
-            services.AddTransient<ICommandHandler<DeleteCompanyCommand>, DeleteCompanyCommandHandler>();
-            services.AddTransient<ICommandHandler<ChangeCompanyNameCommand>, ChangeCompanyNameCommandHandler>();
+            services.AddValidatorsFromAssembly(typeof(ChangeCompanyNameCommandHandler).Assembly);
             
-            services.AddTransient<IDomainEventHandler<CompanyCreatedDomainEvent>, CompanyCreatedDomainEventHandler>();
+            services.Scan(scan => scan
+                .FromAssemblyOf<ChangeCompanyNameCommandHandler>()
+                .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<>)))
+                .AsImplementedInterfaces()
+                .WithTransientLifetime());
+            
+            services.Scan(scan => scan
+                .FromAssemblyOf<ChangeCompanyNameCommandHandler>()
+                .AddClasses(classes => classes.AssignableTo(typeof(ICommandHandler<,>)))
+                .AsImplementedInterfaces()
+                .WithTransientLifetime());
+            
+            services.Scan(scan => scan
+                .FromAssemblyOf<GetCompanyByIdQueryHandler>()
+                .AddClasses(classes => classes.AssignableTo(typeof(IQueryHandler<,>)))
+                .AsImplementedInterfaces()
+                .WithTransientLifetime());
+            
+            services.Decorate(typeof(ICommandHandler<>), typeof(ValidationCommandHandlerDecorator<>));
+            services.Decorate(typeof(ICommandHandler<,>), typeof(ValidationCommandHandlerDecorator<,>));
+                        
+            services.Scan(scan => scan
+                .FromAssemblyOf<CompanyCreatedDomainEventHandler>()
+                .AddClasses(classes => classes.AssignableTo(typeof(IDomainEventHandler<>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
+
+            return services;
+        }
+    }
+
+    public static class InfrastructureServices
+    {
+        public static IServiceCollection AddInfrastructureServices(this IServiceCollection services)
+        {
+            services.Scan(scan => scan
+                .FromAssemblyOf<CompanyRepository>()
+                .AddClasses(classes => classes.AssignableTo(typeof(IRepository<>)))
+                .AsImplementedInterfaces()
+                .WithScopedLifetime());
+            
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
+            
+            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 
             return services;
         }

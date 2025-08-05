@@ -27,6 +27,8 @@ public class UnitOfWork : IUnitOfWork
             // Save data so the events have access to the latest state.
             var result = await _dbContext.SaveChangesAsync(cancellationToken);
             
+            var iterationsLimit = 20;
+            var currentIteration = 0;
             bool hasMoreEvents;
             do
             {
@@ -44,8 +46,8 @@ public class UnitOfWork : IUnitOfWork
                 }
 
                 hasMoreEvents = CollectDomainEvents().Any();
-
-            } while (hasMoreEvents);
+                currentIteration++;
+            } while (hasMoreEvents && currentIteration < iterationsLimit);
 
             await transaction.CommitAsync(cancellationToken);
             return result;

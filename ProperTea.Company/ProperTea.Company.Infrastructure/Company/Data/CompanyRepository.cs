@@ -1,9 +1,6 @@
-using System.Threading.Tasks;
-
 using Microsoft.EntityFrameworkCore;
 
 using ProperTea.Company.Domain.Company;
-using ProperTea.Company.Domain.Company.DomainEvents;
 using ProperTea.Company.Infrastructure.Core;
 
 namespace ProperTea.Company.Infrastructure.Company.Data

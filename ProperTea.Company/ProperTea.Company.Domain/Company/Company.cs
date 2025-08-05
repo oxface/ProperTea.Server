@@ -8,7 +8,28 @@ namespace ProperTea.Company.Domain.Company
 {
     public class Company : AggregateRootBase, IAggregateRoot
     {
-        public string Name { get; private set; }
+        public const int MaxNameLength = 200;
+        public const int MinNameLength = 1;
+    
+        private string _name;
+        public string Name 
+        {
+            get => _name;
+            private set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                    throw new Exception("Company.NameRequired");
+                
+                if (value.Length > MaxNameLength)
+                    throw new Exception("Company.NameTooLong");
+                
+                if (value.Length < MinNameLength)
+                    throw new Exception("Company.NameTooShort");
+                
+                _name = value;
+            }
+        }
+
 
 #pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         private Company()

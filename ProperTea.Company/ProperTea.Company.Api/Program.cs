@@ -26,9 +26,10 @@ if (!builder.Environment.IsDevelopment())
     }
 }
 builder.Services
+    .AddDomainServices()
     .AddDataServices(builder.Configuration)
-    .AddGeneralServices(builder.Configuration)
-    .AddCompanyServices(builder.Configuration);
+    .AddInfrastructureServices()
+    .AddApplicationServices();
 
 // Add Dapr services
 builder.Services.AddDaprClient();

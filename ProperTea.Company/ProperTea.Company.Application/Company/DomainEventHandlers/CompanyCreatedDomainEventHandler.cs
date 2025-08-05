@@ -1,9 +1,7 @@
-using System;
-
 using ProperTea.Company.Domain.Company;
 using ProperTea.Company.Domain.Core;
 
-namespace ProperTea.Company.Infrastructure.Company.Data;
+namespace ProperTea.Company.Application.Company.DomainEventHandlers;
 
 public class CompanyCreatedDomainEventHandler : IDomainEventHandler<CompanyCreatedDomainEvent>
 {
