@@ -1,8 +1,37 @@
+using Dapr.Client;
+using Dapr.AspNetCore;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using Scalar.AspNetCore;
+using ProperTea.Company.Api.Setup;
+using ProperTea.Company.Api.Company.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
+
+builder.AddServiceDefaults();
+
+builder.Configuration
+    .SetBasePath(Directory.GetCurrentDirectory())
+    .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
+    .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
+    .AddEnvironmentVariables();
+
+if (!builder.Environment.IsDevelopment())
+{
+    var keyVaultEndpoint = builder.Configuration["KeyVaultEndpoint"];
+    if (!string.IsNullOrEmpty(keyVaultEndpoint))
+    {
+        builder.Configuration.AddAzureKeyVault(keyVaultEndpoint);
+    }
+}
+builder.Services
+    .AddDataServices(builder.Configuration)
+    .AddGeneralServices(builder.Configuration)
+    .AddCompanyServices(builder.Configuration);
+
+// Add Dapr services
+builder.Services.AddDaprClient();
+builder.Services.AddControllers().AddDapr();
 
 builder.Services.AddOpenApi();
 
@@ -12,6 +41,10 @@ builder.Services.ConfigureHttpJsonOptions(options => {
 
 var app = builder.Build();
 
+// Use Dapr middleware
+app.UseCloudEvents();
+app.MapSubscribeHandler();
+
 app.MapOpenApi();
 if (app.Environment.IsDevelopment())
 {
@@ -20,28 +53,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
-var summaries = new[]
-{
-    "Freezing", "Bracing", "Chilly", "Cool B)", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
-};
-
-app.MapGet("/weatherforecast", () =>
-{
-    var forecast =  Enumerable.Range(1, 5).Select(index =>
-        new WeatherForecast
-        (
-            DateOnly.FromDateTime(DateTime.Now.AddDays(index)),
-            Random.Shared.Next(-20, 55),
-            summaries[Random.Shared.Next(summaries.Length)]
-        ))
-        .ToArray();
-    return forecast;
-})
-.WithName("GetWeatherForecast");
+app.MapDefaultEndpoints()
+    .MapCompanyEndpoints();
 
 app.Run();
-
-record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
-{
-    public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
-}

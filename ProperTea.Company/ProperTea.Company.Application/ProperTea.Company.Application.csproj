@@ -7,7 +7,11 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="ValueTypes/" />
+    <ProjectReference Include="../ProperTea.Company.Domain/ProperTea.Company.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Company/" />
   </ItemGroup>
 
 </Project>

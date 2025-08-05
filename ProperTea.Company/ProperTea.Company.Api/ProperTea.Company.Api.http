@@ -1,6 +1,0 @@
-@ProperTea.Company.Api_HostAddress = http://localhost:5291
-
-GET {{ProperTea.Company.Api_HostAddress}}/weatherforecast/
-Accept: application/json
-
-###

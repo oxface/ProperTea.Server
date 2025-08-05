@@ -7,13 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Dapr.AspNetCore" Version="1.15.4" />
+    <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7" />
-    <PackageReference Include="Scalar.AspNetCore" Version="2.6.3" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.24" />
+    <PackageReference Include="Scalar.AspNetCore" Version="2.6.4" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="../ProperTea.Company.Application/ProperTea.Company.Application.csproj" />
     <ProjectReference Include="../ProperTea.Company.Domain/ProperTea.Company.Domain.csproj" />
     <ProjectReference Include="../ProperTea.Company.Infrastructure/ProperTea.Company.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Shared\ProperTea.Shared.ServiceDefaults\ProperTea.Shared.ServiceDefaults.csproj" />
   </ItemGroup>
 
 </Project>

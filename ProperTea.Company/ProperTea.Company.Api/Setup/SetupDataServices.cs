@@ -1,0 +1,16 @@
+using Microsoft.EntityFrameworkCore;
+using ProperTea.Company.Infrastructure.Company.Data;
+
+namespace ProperTea.Company.Api.Setup;
+
+public static class DataServices
+{
+    public static IServiceCollection AddDataServices(this IServiceCollection services,
+            IConfiguration configuration)
+        { 
+            services.AddDbContext<CompanyDbContext>(options =>
+                options.UseSqlServer(configuration.GetConnectionString("propertea-db")));   
+                
+            return services;
+        }
+}
