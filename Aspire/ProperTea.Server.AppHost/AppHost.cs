@@ -6,6 +6,7 @@ var azureSql = builder.AddAzureSqlServer("propertea-sql")
     .RunAsContainer(e =>
     {
         e.WithDataVolume("propertea-sql-data");
+        e.WithLifetime(ContainerLifetime.Persistent);
     });
 var companyDb = azureSql.AddDatabase("propertea-company-db");
 var migrations = builder.AddProject<Projects.ProperTea_Company_MigrationService>("migrations")

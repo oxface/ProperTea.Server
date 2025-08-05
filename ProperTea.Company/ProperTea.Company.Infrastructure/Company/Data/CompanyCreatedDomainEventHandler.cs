@@ -7,9 +7,16 @@ namespace ProperTea.Company.Infrastructure.Company.Data;
 
 public class CompanyCreatedDomainEventHandler : IDomainEventHandler<CompanyCreatedDomainEvent>
 {
-    public Task HandleAsync(CompanyCreatedDomainEvent domainEvent, CancellationToken ct = default)
+    private readonly ICompanyDomainService _companyDomainService;
+
+    public CompanyCreatedDomainEventHandler(ICompanyDomainService companyDomainService)
+    {
+        _companyDomainService = companyDomainService;
+    }
+
+    public async Task HandleAsync(CompanyCreatedDomainEvent domainEvent, CancellationToken ct = default)
     {
         // TODO: integration event.
-        return Task.CompletedTask;
+        await _companyDomainService.ChangeCompanyNameAsync(domainEvent.CompanyId, domainEvent.Name + "1", ct);
     }
 }

@@ -6,4 +6,9 @@ namespace ProperTea.Company.Domain.Core
     {
         DateTime OccurredOn { get; }
     }
+    
+    public interface IPrioritizedDomainEvent : IDomainEvent
+    {
+        int Priority { get; }
+    }
 }

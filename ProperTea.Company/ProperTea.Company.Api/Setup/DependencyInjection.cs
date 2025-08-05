@@ -1,4 +1,3 @@
-using ProperTea.Company.Api.DomainEvents;
 using ProperTea.Company.Application.Company.Commands;
 using ProperTea.Company.Application.Company.Models;
 using ProperTea.Company.Application.Company.Queries;
@@ -15,7 +14,7 @@ namespace ProperTea.Company.Api.Setup
         public static IServiceCollection AddGeneralServices(this IServiceCollection services,
             IConfiguration configuration)
         {            
-            services.AddScoped<IDomainEventDispatcher, RecursiveDomainEventDispatcher>();
+            services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
             services.AddScoped<IUnitOfWork, UnitOfWork>();
 
             return services;
@@ -33,6 +32,8 @@ namespace ProperTea.Company.Api.Setup
             services.AddTransient<ICommandHandler<CreateCompanyCommand, Guid>, CreateCompanyCommandHandler>();
             services.AddTransient<ICommandHandler<DeleteCompanyCommand>, DeleteCompanyCommandHandler>();
             services.AddTransient<ICommandHandler<ChangeCompanyNameCommand>, ChangeCompanyNameCommandHandler>();
+            
+            services.AddTransient<IDomainEventHandler<CompanyCreatedDomainEvent>, CompanyCreatedDomainEventHandler>();
 
             return services;
         }
