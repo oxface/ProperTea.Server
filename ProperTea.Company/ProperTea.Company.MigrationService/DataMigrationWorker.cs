@@ -2,8 +2,6 @@ using System.Diagnostics;
 
 using Microsoft.EntityFrameworkCore;
 
-using OpenTelemetry.Trace;
-
 using ProperTea.Company.Infrastructure.Company.Data;
 
 namespace ProperTea.Company.MigrationService;
@@ -13,11 +11,11 @@ public class DataMigrationWorker(
     IHostApplicationLifetime hostApplicationLifetime) : BackgroundService
 {
     public const string ActivitySourceName = "Migrations";
-    private static readonly ActivitySource s_activitySource = new(ActivitySourceName);
+    private static readonly ActivitySource SActivitySource = new(ActivitySourceName);
 
     protected override async Task ExecuteAsync(CancellationToken cancellationToken)
     {
-        using var activity = s_activitySource.StartActivity("Migrating database", ActivityKind.Client);
+        using var activity = SActivitySource.StartActivity(nameof(ExecuteAsync), ActivityKind.Client);
 
         try
         {
@@ -29,7 +27,7 @@ public class DataMigrationWorker(
         }
         catch (Exception ex)
         {
-            activity?.RecordException(ex);
+            activity?.AddException(ex);
             throw;
         }
 

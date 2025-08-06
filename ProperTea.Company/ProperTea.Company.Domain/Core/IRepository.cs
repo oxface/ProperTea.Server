@@ -1,6 +1,3 @@
-using System;
-using System.Threading.Tasks;
-
 namespace ProperTea.Company.Domain.Core
 {
     public interface IRepository<T> where T : EntityBase

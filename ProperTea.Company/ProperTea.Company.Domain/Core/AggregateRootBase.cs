@@ -1,5 +1,3 @@
-using System;
-
 namespace ProperTea.Company.Domain.Core;
 
 public abstract class AggregateRootBase : EntityBase, IAggregateRoot

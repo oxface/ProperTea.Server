@@ -1,5 +1,4 @@
 using ProperTea.Company.Application.Core;
-using System;
 
 namespace ProperTea.Company.Application.Company.Commands
 {

@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using ProperTea.Company.Application.Company.Commands;
 using ProperTea.Company.Application.Core;
 

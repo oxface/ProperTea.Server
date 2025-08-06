@@ -1,5 +1,4 @@
 using ProperTea.Company.Application.Core;
-using System.Threading.Tasks;
 using ProperTea.Company.Domain.Company;
 using ProperTea.Company.Application.Company.Models;
 

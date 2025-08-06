@@ -1,6 +1,4 @@
 using ProperTea.Company.Application.Core;
-using System;
-
 using ProperTea.Company.Application.Company.Models;
 
 namespace ProperTea.Company.Application.Company.Queries

@@ -1,5 +1,3 @@
-using Microsoft.AspNetCore.Routing;
-
 namespace ProperTea.Company.Api.Company.Endpoints
 {
     public static class CompanyEndpointGroup

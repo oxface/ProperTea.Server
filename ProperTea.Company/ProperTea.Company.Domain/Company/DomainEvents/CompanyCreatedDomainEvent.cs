@@ -1,19 +1,11 @@
 using ProperTea.Company.Domain.Core;
-using System;
 
-namespace ProperTea.Company.Domain.Company
+namespace ProperTea.Company.Domain.Company.DomainEvents
 {
-    public class CompanyCreatedDomainEvent : IDomainEvent
+    public class CompanyCreatedDomainEvent(Guid companyId, string name) : IDomainEvent
     {
-        public Guid CompanyId { get; }
-        public string Name { get; }
-        public DateTime OccurredOn { get; }
-
-        public CompanyCreatedDomainEvent(Guid companyId, string name)
-        {
-            CompanyId = companyId;
-            Name = name;
-            OccurredOn = DateTime.UtcNow;
-        }
+        public Guid CompanyId { get; } = companyId;
+        public string Name { get; } = name;
+        public DateTime OccurredOn { get; } = DateTime.UtcNow;
     }
 }

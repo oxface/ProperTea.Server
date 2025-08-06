@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Http;
 using ProperTea.Company.Domain.Company;
 using ProperTea.Company.Application.Company.Models;
 using ProperTea.Company.Application.Company.Queries;

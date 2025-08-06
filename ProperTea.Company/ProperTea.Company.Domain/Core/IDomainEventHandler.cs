@@ -1,5 +1,3 @@
-using System;
-
 namespace ProperTea.Company.Domain.Core;
 
 public interface IDomainEventHandler<in TEvent> where TEvent : IDomainEvent

@@ -1,6 +1,4 @@
-using System;
-using System.Threading.Tasks;
-
+using ProperTea.Company.Domain.Company.DomainEvents;
 using ProperTea.Company.Domain.Core;
 
 namespace ProperTea.Company.Domain.Company

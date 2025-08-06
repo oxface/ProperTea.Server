@@ -1,5 +1,3 @@
-using System;
-
 namespace ProperTea.Company.Application.Company.Models
 {
     public class CompanyModel

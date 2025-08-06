@@ -1,6 +1,3 @@
-using System;
-using System.Collections.Generic;
-
 using ProperTea.Company.Domain.Company.DomainEvents;
 using ProperTea.Company.Domain.Core;
 
@@ -19,14 +16,13 @@ namespace ProperTea.Company.Domain.Company
             {
                 if (string.IsNullOrWhiteSpace(value))
                     throw new Exception("Company.NameRequired");
-                
-                if (value.Length > MaxNameLength)
-                    throw new Exception("Company.NameTooLong");
-                
-                if (value.Length < MinNameLength)
-                    throw new Exception("Company.NameTooShort");
-                
-                _name = value;
+
+                _name = value.Length switch
+                {
+                    > MaxNameLength => throw new Exception("Company.NameTooLong"),
+                    < MinNameLength => throw new Exception("Company.NameTooShort"),
+                    _ => value
+                };
             }
         }
 
@@ -52,11 +48,11 @@ namespace ProperTea.Company.Domain.Company
 
         public void ChangeName(string newName)
         {
-            if (Name != newName)
-            {
-                Name = newName;
-                AddDomainEvent(new CompanyNameChangedDomainEvent(Id, newName));
-            }
+            if (Name == newName) 
+                return;
+            
+            Name = newName;
+            AddDomainEvent(new CompanyNameChangedDomainEvent(Id, newName));
         }
 
         public bool AllowDelete()

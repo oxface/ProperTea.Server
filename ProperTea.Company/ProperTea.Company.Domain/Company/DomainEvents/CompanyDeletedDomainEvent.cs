@@ -1,17 +1,10 @@
 using ProperTea.Company.Domain.Core;
-using System;
 
-namespace ProperTea.Company.Domain.Company
+namespace ProperTea.Company.Domain.Company.DomainEvents
 {
-    public class CompanyDeletedDomainEvent : IDomainEvent
+    public class CompanyDeletedDomainEvent(Guid companyId) : IDomainEvent
     {
-        public Guid CompanyId { get; }
-        public DateTime OccurredOn { get; }
-
-        public CompanyDeletedDomainEvent(Guid companyId)
-        {
-            CompanyId = companyId;
-            OccurredOn = DateTime.UtcNow;
-        }
+        public Guid CompanyId { get; } = companyId;
+        public DateTime OccurredOn { get; } = DateTime.UtcNow;
     }
 }
