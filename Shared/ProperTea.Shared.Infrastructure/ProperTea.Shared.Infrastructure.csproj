@@ -7,12 +7,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ProperTea.Shared.Application\ProperTea.Shared.Application.csproj" />
-      <ProjectReference Include="..\ProperTea.Shared.Domain\ProperTea.Shared.Domain.csproj" />
+        <ProjectReference Include="..\ProperTea.Shared.Application\ProperTea.Shared.Application.csproj"/>
+        <ProjectReference Include="..\ProperTea.Shared.Domain\ProperTea.Shared.Domain.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.8"/>
     </ItemGroup>
 
 </Project>

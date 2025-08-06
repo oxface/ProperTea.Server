@@ -1,12 +1,11 @@
-namespace ProperTea.Shared.Domain.DomainEvents
+namespace ProperTea.Shared.Domain.DomainEvents;
+
+public interface IDomainEvent
 {
-    public interface IDomainEvent
-    {
-        DateTime OccurredOn { get; }
-    }
-    
-    public interface IPrioritizedDomainEvent : IDomainEvent
-    {
-        int Priority { get; }
-    }
+    DateTime OccurredOn { get; }
+}
+
+public interface IPrioritizedDomainEvent : IDomainEvent
+{
+    int Priority { get; }
 }

@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+
 using ProperTea.Shared.Application;
 using ProperTea.Shared.Domain;
 using ProperTea.Shared.Domain.DomainEvents;
@@ -15,7 +16,7 @@ public class UnitOfWork(DbContext dbContext, IDomainEventDispatcher dispatcher)
         {
             // Save data so the events have access to the latest state.
             var result = await dbContext.SaveChangesAsync(cancellationToken);
-            
+
             const int iterationsLimit = 20;
             var currentIteration = 0;
             bool hasMoreEvents;
@@ -23,16 +24,13 @@ public class UnitOfWork(DbContext dbContext, IDomainEventDispatcher dispatcher)
             {
                 var domainEvents = CollectDomainEvents();
                 ClearDomainEvents();
-                
+
                 foreach (var domainEvent in domainEvents)
                     dispatcher.Enqueue(domainEvent);
 
                 await dispatcher.DispatchAllAsync(cancellationToken);
-                
-                if (dbContext.ChangeTracker.HasChanges())
-                {
-                    await dbContext.SaveChangesAsync(cancellationToken);
-                }
+
+                if (dbContext.ChangeTracker.HasChanges()) await dbContext.SaveChangesAsync(cancellationToken);
 
                 hasMoreEvents = CollectDomainEvents().Count != 0;
                 currentIteration++;
@@ -47,7 +45,7 @@ public class UnitOfWork(DbContext dbContext, IDomainEventDispatcher dispatcher)
             throw;
         }
     }
-    
+
     private List<IDomainEvent> CollectDomainEvents()
     {
         var domainEvents = dbContext.ChangeTracker
@@ -55,7 +53,7 @@ public class UnitOfWork(DbContext dbContext, IDomainEventDispatcher dispatcher)
             .SelectMany(e => e.Entity.DomainEvents);
         return domainEvents.ToList();
     }
-    
+
     private void ClearDomainEvents()
     {
         foreach (var entity in dbContext.ChangeTracker.Entries<IAggregateRoot>())

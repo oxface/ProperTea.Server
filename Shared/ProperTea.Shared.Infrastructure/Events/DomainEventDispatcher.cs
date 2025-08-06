@@ -1,4 +1,5 @@
 using Microsoft.Extensions.DependencyInjection;
+
 using ProperTea.Shared.Domain.DomainEvents;
 
 namespace ProperTea.Shared.Infrastructure.Events;
@@ -21,11 +22,9 @@ public class DomainEventDispatcher(IServiceProvider serviceProvider) : IDomainEv
             var handlers = serviceProvider.GetServices(handlerType);
 
             foreach (var handler in handlers)
-            {
                 await (Task)handlerType
                     .GetMethod(nameof(IDomainEventHandler<IDomainEvent>.HandleAsync))!
                     .Invoke(handler, [domainEvent, cancellationToken])!;
-            }
         }
     }
 }

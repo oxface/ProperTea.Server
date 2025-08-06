@@ -1,7 +1,5 @@
 using System.Diagnostics;
 
-using ProperTea.Shared.Api;
-
 namespace ProperTea.Company.Api.Setup;
 
 public static class ErrorHandlingExtensions
@@ -14,7 +12,7 @@ public static class ErrorHandlingExtensions
             options.CustomizeProblemDetails = context =>
             {
                 context.ProblemDetails.Instance = context.HttpContext.Request.Path;
-                context.ProblemDetails.Extensions["traceId"] = 
+                context.ProblemDetails.Extensions["traceId"] =
                     Activity.Current?.Id ?? context.HttpContext.TraceIdentifier;
             };
         });

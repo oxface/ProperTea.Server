@@ -1,7 +1,6 @@
-namespace ProperTea.Company.Domain.Company
+namespace ProperTea.Company.Domain.Company;
+
+public class CompanyFilter
 {
-    public class CompanyFilter
-    {
-        public string? Name { get; set; }
-    }
+    public string? Name { get; set; }
 }

@@ -1,10 +1,9 @@
 using ProperTea.Shared.Application.Commands;
 
-namespace ProperTea.Company.Application.Company.Commands
+namespace ProperTea.Company.Application.Company.Commands;
+
+public class ChangeCompanyNameCommand : ICommand
 {
-    public class ChangeCompanyNameCommand : ICommand
-    {
-        public Guid Id { get; set; }
-        public string NewName { get; set; } = string.Empty;
-    }
+    public Guid Id { get; set; }
+    public string NewName { get; set; } = string.Empty;
 }

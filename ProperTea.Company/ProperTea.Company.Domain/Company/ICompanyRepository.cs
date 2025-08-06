@@ -1,9 +1,6 @@
-using ProperTea.Shared.Domain;
+namespace ProperTea.Company.Domain.Company;
 
-namespace ProperTea.Company.Domain.Company
+public interface ICompanyRepository : IRepository<Company>
 {
-    public interface ICompanyRepository : IRepository<Company>
-    {
-        Task<IEnumerable<Company>> GetByFilterAsync(CompanyFilter filter, CancellationToken ct = default);
-    }
+    Task<IEnumerable<Company>> GetByFilterAsync(CompanyFilter filter, CancellationToken ct = default);
 }

@@ -1,11 +1,8 @@
-using ProperTea.Shared.Domain;
+namespace ProperTea.Company.Domain.Company;
 
-namespace ProperTea.Company.Domain.Company
+public interface ICompanyDomainService : IDomainService
 {
-    public interface ICompanyDomainService : IDomainService
-    {
-        Task<Company> CreateCompanyAsync(string name, CancellationToken ct = default);
-        Task DeleteCompanyAsync(Guid id, CancellationToken ct = default);
-        Task ChangeCompanyNameAsync(Guid id, string newName, CancellationToken ct = default);
-    }
+    Task<Company> CreateCompanyAsync(string name, CancellationToken ct = default);
+    Task DeleteCompanyAsync(Guid id, CancellationToken ct = default);
+    Task ChangeCompanyNameAsync(Guid id, string newName, CancellationToken ct = default);
 }

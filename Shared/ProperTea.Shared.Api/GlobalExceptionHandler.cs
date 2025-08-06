@@ -1,6 +1,8 @@
 using FluentValidation;
+
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Http;
+
 using ProperTea.Shared.Domain.Exceptions;
 
 namespace ProperTea.Shared.Api;
@@ -29,8 +31,9 @@ public class GlobalExceptionHandler(IProblemDetailsService problemDetailsService
         });
     }
 
-    private static (int StatusCode, string Title, string Detail, object? Errors) GetProblemDetails(Exception exception) =>
-        exception switch
+    private static (int StatusCode, string Title, string Detail, object? Errors) GetProblemDetails(Exception exception)
+    {
+        return exception switch
         {
             ValidationException validationException => (
                 StatusCodes.Status400BadRequest,
@@ -66,4 +69,5 @@ public class GlobalExceptionHandler(IProblemDetailsService problemDetailsService
                 "An unexpected error occurred while processing your request.",
                 null)
         };
+    }
 }

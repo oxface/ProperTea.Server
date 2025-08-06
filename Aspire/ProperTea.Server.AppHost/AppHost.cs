@@ -1,5 +1,7 @@
 using CommunityToolkit.Aspire.Hosting.Dapr;
 
+using Projects;
+
 var builder = DistributedApplication.CreateBuilder(args);
 
 var azureSql = builder.AddAzureSqlServer("propertea-sql")
@@ -9,7 +11,7 @@ var azureSql = builder.AddAzureSqlServer("propertea-sql")
         e.WithLifetime(ContainerLifetime.Persistent);
     });
 var companyDb = azureSql.AddDatabase("propertea-company-db");
-var migrations = builder.AddProject<Projects.ProperTea_Company_MigrationService>("migrations")
+var migrations = builder.AddProject<ProperTea_Company_MigrationService>("migrations")
     .WithReference(companyDb)
     .WaitFor(companyDb);
 
@@ -22,14 +24,14 @@ var companyApiSidecarOptions = new DaprSidecarOptions
     MetricsPort = 5012
 };
 var companyApi = builder
-        .AddProject<Projects.ProperTea_Company_Api>("company-api")
-        .WithReference(companyDb)
-        .WithReference(migrations)
-        .WaitForCompletion(migrations)
-        .WaitFor(companyDb)
-        .WithDaprSidecar(companyApiSidecarOptions)
-        .WithOtlpExporter()
-        .WithHttpHealthCheck("/health")
-        .WithEnvironment("ASPNETCORE_ENVIRONMENT", "Development");
+    .AddProject<ProperTea_Company_Api>("company-api")
+    .WithReference(companyDb)
+    .WithReference(migrations)
+    .WaitForCompletion(migrations)
+    .WaitFor(companyDb)
+    .WithDaprSidecar(companyApiSidecarOptions)
+    .WithOtlpExporter()
+    .WithHttpHealthCheck("/health")
+    .WithEnvironment("ASPNETCORE_ENVIRONMENT", "Development");
 
 builder.Build().Run();

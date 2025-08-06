@@ -1,0 +1,1 @@
+global using ProperTea.Company.Domain.Company;

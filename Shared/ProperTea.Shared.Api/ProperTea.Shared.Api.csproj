@@ -7,22 +7,22 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0"/>
     </ItemGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\ProperTea.Shared.Application\ProperTea.Shared.Application.csproj" />
-      <ProjectReference Include="..\ProperTea.Shared.Domain\ProperTea.Shared.Domain.csproj" />
-      <ProjectReference Include="..\ProperTea.Shared.Infrastructure\ProperTea.Shared.Infrastructure.csproj" />
+        <ProjectReference Include="..\ProperTea.Shared.Application\ProperTea.Shared.Application.csproj"/>
+        <ProjectReference Include="..\ProperTea.Shared.Domain\ProperTea.Shared.Domain.csproj"/>
+        <ProjectReference Include="..\ProperTea.Shared.Infrastructure\ProperTea.Shared.Infrastructure.csproj"/>
     </ItemGroup>
 
     <ItemGroup>
-      <Reference Include="Microsoft.AspNetCore.Diagnostics">
-        <HintPath>..\..\..\..\..\..\usr\lib\dotnet\shared\Microsoft.AspNetCore.App\9.0.7\Microsoft.AspNetCore.Diagnostics.dll</HintPath>
-      </Reference>
-      <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
-        <HintPath>..\..\..\..\..\..\usr\lib\dotnet\shared\Microsoft.AspNetCore.App\9.0.7\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
-      </Reference>
+        <Reference Include="Microsoft.AspNetCore.Diagnostics">
+            <HintPath>..\..\..\..\..\..\usr\lib\dotnet\shared\Microsoft.AspNetCore.App\9.0.7\Microsoft.AspNetCore.Diagnostics.dll</HintPath>
+        </Reference>
+        <Reference Include="Microsoft.AspNetCore.Http.Abstractions">
+            <HintPath>..\..\..\..\..\..\usr\lib\dotnet\shared\Microsoft.AspNetCore.App\9.0.7\Microsoft.AspNetCore.Http.Abstractions.dll</HintPath>
+        </Reference>
     </ItemGroup>
 
 </Project>
