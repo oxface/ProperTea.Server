@@ -7,7 +7,8 @@ public class CreateCompanyCommandHandler(ICompanyDomainService domainService, IU
 {
     public async Task<Guid> HandleAsync(CreateCompanyCommand command)
     {
-        var company = await domainService.CreateCompanyAsync(command.Name);
+        //TODO:
+        var company = await domainService.CreateCompanyAsync(command.Name, new Guid());
         await unitOfWork.SaveChangesAsync();
         return company.Id;
     }

@@ -11,7 +11,10 @@ public static class GetCompanyByIdEndpoint
         endpoints.MapGet("/company/{id:guid}",
             async (Guid id, IQueryHandler<GetCompanyByIdQuery, CompanyModel> handler) =>
             {
-                var result = await handler.HandleAsync(new GetCompanyByIdQuery { Id = id });
+                var result = await handler.HandleAsync(new GetCompanyByIdQuery
+                {
+                    Id = id
+                });
                 return Results.Ok(result);
             });
     }

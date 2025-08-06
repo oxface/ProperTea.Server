@@ -4,7 +4,7 @@ namespace ProperTea.Shared.Domain;
 
 public abstract class DomainServiceBase : IDomainService
 {
-    private readonly List<IDomainEvent> _domainEvents = new();
+    private readonly List<IDomainEvent> _domainEvents = [];
 
     public IReadOnlyCollection<IDomainEvent> DomainEvents => _domainEvents.AsReadOnly();
 

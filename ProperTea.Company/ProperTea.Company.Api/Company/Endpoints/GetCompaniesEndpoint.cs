@@ -15,7 +15,10 @@ public static class GetCompaniesEndpoint
                 {
                     Name = request.Query["name"]
                 };
-                var query = new GetCompaniesByFilterQuery { Filter = filter };
+                var query = new GetCompaniesByFilterQuery
+                {
+                    Filter = filter
+                };
                 var result = await handler.HandleAsync(query);
                 return Results.Ok(result);
             });

@@ -1,14 +1,16 @@
+using ProperTea.Company.Domain.Company;
 using ProperTea.Company.Domain.Company.DomainEvents;
 using ProperTea.Shared.Domain.Exceptions;
 
-namespace ProperTea.Company.Domain.Company;
+namespace ProperTea.Company.Domain.CompanyAggregate;
 
 public class CompanyDomainService(ICompanyRepository repository) : DomainServiceBase, ICompanyDomainService
 {
     public async Task<Company> CreateCompanyAsync(string name,
+        Guid systemOwnerId,
         CancellationToken ct = default)
     {
-        var company = Company.Create(name);
+        var company = Company.Create(name, systemOwnerId);
         await repository.AddAsync(company, ct);
         return company;
     }

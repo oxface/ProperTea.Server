@@ -10,7 +10,10 @@ public static class DeleteCompanyEndpoint
         endpoints.MapDelete("/company/{id:guid}",
             async (Guid id, ICommandHandler<DeleteCompanyCommand> handler) =>
             {
-                await handler.HandleAsync(new DeleteCompanyCommand { Id = id });
+                await handler.HandleAsync(new DeleteCompanyCommand
+                {
+                    Id = id
+                });
                 return Results.NoContent();
             });
     }

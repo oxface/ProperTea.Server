@@ -3,6 +3,7 @@ using FluentValidation;
 using ProperTea.Company.Application.Company.Commands;
 using ProperTea.Company.Application.Company.DomainEventHandlers;
 using ProperTea.Company.Application.Company.Queries;
+using ProperTea.Company.Domain.CompanyAggregate;
 using ProperTea.Company.Infrastructure.Company.Data;
 using ProperTea.Shared.Application;
 using ProperTea.Shared.Application.Commands;
@@ -71,7 +72,7 @@ public static class InfrastructureServices
             .AsImplementedInterfaces()
             .WithScopedLifetime());
 
-        services.AddScoped<IUnitOfWork, UnitOfWork>();
+        services.AddScoped<IUnitOfWork, UnitOfWorkEf>();
 
         services.AddScoped<IDomainEventDispatcher, DomainEventDispatcher>();
 

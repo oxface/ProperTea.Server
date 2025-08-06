@@ -25,7 +25,10 @@ public class GlobalExceptionHandler(IProblemDetailsService problemDetailsService
                 Title = title,
                 Detail = detail,
                 Type = exception.GetType().Name,
-                Extensions = { ["errors"] = errors }
+                Extensions =
+                {
+                    ["errors"] = errors
+                }
             },
             Exception = exception
         });

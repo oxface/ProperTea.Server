@@ -4,7 +4,7 @@ using ProperTea.Shared.Domain;
 
 namespace ProperTea.Shared.Infrastructure.Data;
 
-public abstract class AggregateRootRepositoryBase<T>(DbContext context) : IRepository<T>
+public abstract class RepositoryEfBase<T>(DbContext context) : IRepository<T>
     where T : EntityBase
 {
     public virtual async Task<T?> GetByIdAsync(Guid id, CancellationToken ct = default)
@@ -20,7 +20,9 @@ public abstract class AggregateRootRepositoryBase<T>(DbContext context) : IRepos
 
     public virtual async Task DeleteAsync(Guid id, CancellationToken ct = default)
     {
-        var entity = await context.Set<T>().FindAsync(id, ct) ?? throw new Exception();
+        var entity = await context.Set<T>()
+                         .SingleOrDefaultAsync(i => i.Id == id, ct)
+                     ?? throw new Exception();
         context.Set<T>().Remove(entity);
     }
 
@@ -29,8 +31,14 @@ public abstract class AggregateRootRepositoryBase<T>(DbContext context) : IRepos
         await DeleteAsync(entity.Id, ct);
     }
 
-    protected virtual IQueryable<T> IncludeRelatedData(IQueryable<T> queryable)
+    protected virtual IEnumerable<string> GetNavigationalProperties()
     {
-        return queryable;
+        return [];
+    }
+
+    protected IQueryable<T> IncludeRelatedData(IQueryable<T> query)
+    {
+        return GetNavigationalProperties().Aggregate(query, (current, property)
+            => current.Include(property));
     }
 }

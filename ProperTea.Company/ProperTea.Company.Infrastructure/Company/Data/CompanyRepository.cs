@@ -5,9 +5,9 @@ using ProperTea.Shared.Infrastructure.Data;
 namespace ProperTea.Company.Infrastructure.Company.Data;
 
 public class CompanyRepository(CompanyDbContext context)
-    : AggregateRootRepositoryBase<Domain.Company.Company>(context), ICompanyRepository
+    : RepositoryEfBase<Domain.CompanyAggregate.Company>(context), ICompanyRepository
 {
-    public async Task<IEnumerable<Domain.Company.Company>> GetByFilterAsync(
+    public async Task<IEnumerable<Domain.CompanyAggregate.Company>> GetByFilterAsync(
         CompanyFilter filter,
         CancellationToken ct = default)
     {

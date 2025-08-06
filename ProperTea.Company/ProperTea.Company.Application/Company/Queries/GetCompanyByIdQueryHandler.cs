@@ -11,6 +11,10 @@ public class GetCompanyByIdQueryHandler(ICompanyRepository repository)
         var company = await repository.GetByIdAsync(query.Id);
         if (company == null)
             throw new Exception("Company not found");
-        return new CompanyModel { Id = company.Id, Name = company.Name };
+        return new CompanyModel
+        {
+            Id = company.Id,
+            Name = company.Name
+        };
     }
 }

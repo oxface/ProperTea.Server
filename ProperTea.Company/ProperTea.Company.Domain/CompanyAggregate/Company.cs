@@ -1,8 +1,8 @@
 using ProperTea.Company.Domain.Company.DomainEvents;
 
-namespace ProperTea.Company.Domain.Company;
+namespace ProperTea.Company.Domain.CompanyAggregate;
 
-public class Company : AggregateRootBase, IAggregateRoot
+public class Company : AggregateRootBase, ISystemOwnerEntity
 {
     public const int MaxNameLength = 200;
     public const int MinNameLength = 1;
@@ -14,10 +14,11 @@ public class Company : AggregateRootBase, IAggregateRoot
         _name = "";
     }
 
-    private Company(Guid id, string name)
+    private Company(Guid id, string name, Guid systemOwnerId)
     {
         Id = id;
         Name = name;
+        SystemOwnerId = systemOwnerId;
     }
 
     public string Name
@@ -37,9 +38,11 @@ public class Company : AggregateRootBase, IAggregateRoot
         }
     }
 
-    public static Company Create(string name)
+    public Guid SystemOwnerId { get; }
+
+    public static Company Create(string name, Guid systemOwnerId)
     {
-        var company = new Company(Guid.NewGuid(), name);
+        var company = new Company(Guid.NewGuid(), name, systemOwnerId);
         company.AddDomainEvent(new CompanyCreatedDomainEvent(company.Id, company.Name));
         return company;
     }

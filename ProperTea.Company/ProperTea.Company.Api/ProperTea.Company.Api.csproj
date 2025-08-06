@@ -7,17 +7,17 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Dapr.AspNetCore" Version="1.15.4"/>
-        <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks" Version="2.2.0"/>
-        <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="9.0.7"/>
-        <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.8">
+        <PackageReference Include="Dapr.AspNetCore"/>
+        <PackageReference Include="FluentValidation.DependencyInjectionExtensions"/>
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.HealthChecks"/>
+        <PackageReference Include="Microsoft.AspNetCore.OpenApi"/>
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Design">
             <PrivateAssets>all</PrivateAssets>
             <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
         </PackageReference>
-        <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault" Version="3.1.24"/>
-        <PackageReference Include="Scalar.AspNetCore" Version="2.6.4"/>
-        <PackageReference Include="Scrutor" Version="6.1.0"/>
+        <PackageReference Include="Microsoft.Extensions.Configuration.AzureKeyVault"/>
+        <PackageReference Include="Scalar.AspNetCore"/>
+        <PackageReference Include="Scrutor"/>
     </ItemGroup>
 
     <ItemGroup>
