@@ -1,6 +1,6 @@
 using System.Diagnostics;
 
-using ProperTea.Company.Api.Services;
+using ProperTea.Shared.Api;
 
 namespace ProperTea.Company.Api.Setup;
 

@@ -1,28 +1,22 @@
 using ProperTea.Company.Domain.Company.DomainEvents;
-using ProperTea.Company.Domain.Core;
+using ProperTea.Shared.Domain;
+using ProperTea.Shared.Domain.Exceptions;
 
 namespace ProperTea.Company.Domain.Company
 {
-    public class CompanyDomainService : DomainServiceBase, ICompanyDomainService
+    public class CompanyDomainService(ICompanyRepository repository) : DomainServiceBase, ICompanyDomainService
     {
-        private readonly ICompanyRepository _repository;
-
-        public CompanyDomainService(ICompanyRepository repository)
-        {
-            _repository = repository;
-        }
-
         public async Task<Company> CreateCompanyAsync(string name,
          CancellationToken ct = default)
         {
             var company = Company.Create(name);
-            await _repository.AddAsync(company, ct);
+            await repository.AddAsync(company, ct);
             return company;
         }
 
         public async Task DeleteCompanyAsync(Guid id, CancellationToken ct = default)
         {
-            var company = await _repository.GetByIdAsync(id);
+            var company = await repository.GetByIdAsync(id, ct);
             if (company is null)
                 throw new InvalidOperationException("Company not found");
 
@@ -30,17 +24,19 @@ namespace ProperTea.Company.Domain.Company
                 throw new InvalidOperationException("Company cannot be deleted");
 
             AddDomainEvent(new CompanyDeletedDomainEvent(company.Id));
-            await _repository.DeleteAsync(company);
+            await repository.DeleteAsync(company, ct);
         }
 
 
         public async Task ChangeCompanyNameAsync(Guid id, string newName, CancellationToken ct = default)
         {
-            var company = await _repository.GetByIdAsync(id);
-            if (company != null)
+            var company = await repository.GetByIdAsync(id, ct);
+            if (company == null)
             {
-                company.ChangeName(newName);
+                throw new EntityNotFoundException(nameof(Company), id);
             }
+            
+            company.ChangeName(newName);
         }
     }
 }

@@ -1,4 +1,4 @@
-using ProperTea.Company.Domain.Core;
+using ProperTea.Shared.Domain.DomainEvents;
 
 namespace ProperTea.Company.Domain.Company.DomainEvents
 {

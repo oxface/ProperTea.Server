@@ -10,6 +10,7 @@ public static class DataServices
         { 
             services.AddDbContext<CompanyDbContext>(options =>
                 options.UseSqlServer(configuration.GetConnectionString("propertea-company-db")));   
+            services.AddScoped<DbContext>(provider => provider.GetRequiredService<CompanyDbContext>());
                 
             return services;
         }

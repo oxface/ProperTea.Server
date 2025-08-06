@@ -1,5 +1,5 @@
 using ProperTea.Company.Application.Company.Commands;
-using ProperTea.Company.Application.Core;
+using ProperTea.Shared.Application.Commands;
 
 namespace ProperTea.Company.Api.Company.Endpoints
 {
@@ -7,11 +7,12 @@ namespace ProperTea.Company.Api.Company.Endpoints
     {
         public static void Map(IEndpointRouteBuilder endpoints)
         {
-            endpoints.MapDelete("/company/{id:guid}", async (Guid id, ICommandHandler<DeleteCompanyCommand> handler) =>
-            {
-                await handler.HandleAsync(new DeleteCompanyCommand { Id = id });
-                return Results.NoContent();
-            });
+            endpoints.MapDelete("/company/{id:guid}", 
+                async (Guid id, ICommandHandler<DeleteCompanyCommand> handler) =>
+                {
+                    await handler.HandleAsync(new DeleteCompanyCommand { Id = id });
+                    return Results.NoContent();
+                });
         }
     }
 }

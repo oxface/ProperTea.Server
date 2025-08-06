@@ -1,5 +1,5 @@
 using ProperTea.Company.Application.Company.Commands;
-using ProperTea.Company.Application.Core;
+using ProperTea.Shared.Application.Commands;
 
 namespace ProperTea.Company.Api.Company.Endpoints
 {
@@ -9,10 +9,10 @@ namespace ProperTea.Company.Api.Company.Endpoints
         {
             endpoints.MapPut("/company/{id:guid}/name",
                 async (ChangeCompanyNameCommand command, ICommandHandler<ChangeCompanyNameCommand> handler) =>
-            {
-                await handler.HandleAsync(command);
-                return Results.NoContent();
-            });
+                {
+                    await handler.HandleAsync(command);
+                    return Results.NoContent();
+                });
         }
     }
 }

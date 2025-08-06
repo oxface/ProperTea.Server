@@ -1,10 +1,9 @@
-using ProperTea.Company.Application.Core;
 using ProperTea.Company.Application.Company.Models;
+using ProperTea.Shared.Application.Queries;
 
 namespace ProperTea.Company.Application.Company.Queries
 {
-    public class GetCompanyByIdQuery : IQuery<CompanyModel>
+    public class GetCompanyByIdQuery : GetByIdQuery<CompanyModel>
     {
-        public Guid Id { get; set; }
     }
 }

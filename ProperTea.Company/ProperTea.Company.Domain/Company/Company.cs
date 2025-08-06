@@ -1,5 +1,5 @@
 using ProperTea.Company.Domain.Company.DomainEvents;
-using ProperTea.Company.Domain.Core;
+using ProperTea.Shared.Domain;
 
 namespace ProperTea.Company.Domain.Company
 {
@@ -8,7 +8,7 @@ namespace ProperTea.Company.Domain.Company
         public const int MaxNameLength = 200;
         public const int MinNameLength = 1;
     
-        private string _name;
+        private string _name = null!;
         public string Name 
         {
             get => _name;
@@ -25,12 +25,10 @@ namespace ProperTea.Company.Domain.Company
                 };
             }
         }
-
-
-#pragma warning disable CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
+        
         private Company()
-#pragma warning restore CS8618 // Non-nullable field must contain a non-null value when exiting constructor. Consider adding the 'required' modifier or declaring as nullable.
         {
+            this._name = "";
         }
 
         private Company(Guid id, string name)

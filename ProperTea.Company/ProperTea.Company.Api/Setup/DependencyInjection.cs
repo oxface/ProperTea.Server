@@ -3,11 +3,15 @@ using FluentValidation;
 using ProperTea.Company.Application.Company.Commands;
 using ProperTea.Company.Application.Company.DomainEventHandlers;
 using ProperTea.Company.Application.Company.Queries;
-using ProperTea.Company.Application.Core;
 using ProperTea.Company.Domain.Company;
-using ProperTea.Company.Domain.Core;
 using ProperTea.Company.Infrastructure.Company.Data;
-using ProperTea.Company.Infrastructure.Core;
+using ProperTea.Shared.Application;
+using ProperTea.Shared.Application.Commands;
+using ProperTea.Shared.Application.Queries;
+using ProperTea.Shared.Domain;
+using ProperTea.Shared.Domain.DomainEvents;
+using ProperTea.Shared.Infrastructure.Data;
+using ProperTea.Shared.Infrastructure.Events;
 
 namespace ProperTea.Company.Api.Setup;
 
