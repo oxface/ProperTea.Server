@@ -1,5 +1,6 @@
 using ProperTea.Company.Application.Company.Models;
 using ProperTea.Company.Application.Company.Queries;
+using ProperTea.Company.Domain.Company;
 using ProperTea.Shared.Application.Queries;
 
 namespace ProperTea.Company.Api.Company.Endpoints;

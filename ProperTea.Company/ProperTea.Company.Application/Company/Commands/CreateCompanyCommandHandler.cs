@@ -1,3 +1,4 @@
+using ProperTea.Company.Domain.Company;
 using ProperTea.Shared.Application.Commands;
 
 namespace ProperTea.Company.Application.Company.Commands;

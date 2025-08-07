@@ -1,10 +1,11 @@
-using ProperTea.Company.Domain.Company;
 using ProperTea.Company.Domain.Company.DomainEvents;
+using ProperTea.Shared.Domain.DomainEvents;
 using ProperTea.Shared.Domain.Exceptions;
 
-namespace ProperTea.Company.Domain.CompanyAggregate;
+namespace ProperTea.Company.Domain.Company;
 
-public class CompanyDomainService(ICompanyRepository repository) : DomainServiceBase, ICompanyDomainService
+public class CompanyDomainService(ICompanyRepository repository, IDomainEventDispatcher eventDispatcher)
+    : DomainServiceBase, ICompanyDomainService
 {
     public async Task<Company> CreateCompanyAsync(string name,
         Guid systemOwnerId,
@@ -19,20 +20,21 @@ public class CompanyDomainService(ICompanyRepository repository) : DomainService
     {
         var company = await repository.GetByIdAsync(id, ct);
         if (company is null)
-            throw new InvalidOperationException("Company not found");
+            throw new EntityNotFoundException(nameof(Company), id);
 
         if (!company.AllowDelete())
             throw new InvalidOperationException("Company cannot be deleted");
-
-        AddDomainEvent(new CompanyDeletedDomainEvent(company.Id));
         await repository.DeleteAsync(company, ct);
+
+        eventDispatcher.Enqueue(new CompanyDeletedDomainEvent(company.Id));
     }
 
 
     public async Task ChangeCompanyNameAsync(Guid id, string newName, CancellationToken ct = default)
     {
         var company = await repository.GetByIdAsync(id, ct);
-        if (company == null) throw new EntityNotFoundException(nameof(Company), id);
+        if (company == null)
+            throw new EntityNotFoundException(nameof(Company), id);
 
         company.ChangeName(newName);
     }

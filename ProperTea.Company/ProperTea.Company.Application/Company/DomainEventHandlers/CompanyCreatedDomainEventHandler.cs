@@ -1,3 +1,4 @@
+using ProperTea.Company.Domain.Company;
 using ProperTea.Company.Domain.Company.DomainEvents;
 using ProperTea.Shared.Domain.DomainEvents;
 

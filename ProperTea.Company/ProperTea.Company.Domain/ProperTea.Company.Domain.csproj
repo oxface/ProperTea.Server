@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="ValueTypes/"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <ProjectReference Include="..\..\Shared\ProperTea.Shared.Domain\ProperTea.Shared.Domain.csproj"/>
     </ItemGroup>
 

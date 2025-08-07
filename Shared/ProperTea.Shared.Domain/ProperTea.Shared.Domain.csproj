@@ -7,10 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-        <Folder Include="ValueTypes\"/>
-    </ItemGroup>
-
-    <ItemGroup>
         <Compile Remove="SystemOwner.cs"/>
     </ItemGroup>
 

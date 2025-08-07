@@ -1,4 +1,5 @@
 using ProperTea.Company.Application.Company.Models;
+using ProperTea.Company.Domain.Company;
 using ProperTea.Shared.Application.Queries;
 
 namespace ProperTea.Company.Application.Company.Queries;

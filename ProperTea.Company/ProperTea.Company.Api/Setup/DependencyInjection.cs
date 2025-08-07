@@ -3,7 +3,7 @@ using FluentValidation;
 using ProperTea.Company.Application.Company.Commands;
 using ProperTea.Company.Application.Company.DomainEventHandlers;
 using ProperTea.Company.Application.Company.Queries;
-using ProperTea.Company.Domain.CompanyAggregate;
+using ProperTea.Company.Domain.Company;
 using ProperTea.Company.Infrastructure.Company.Data;
 using ProperTea.Shared.Application;
 using ProperTea.Shared.Application.Commands;
